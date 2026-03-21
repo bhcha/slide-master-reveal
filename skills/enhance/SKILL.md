@@ -115,17 +115,9 @@ Slide Master 토큰 변수 사용:
 
 **상세 레이아웃 패턴은 [charts.md](./charts.md) 참조.**
 
-차트 추가 시 먼저 `index.html`의 `<head>`에 스크립트 추가:
-```html
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/reveal.js-plugins@latest/chart/plugin.js"></script>
-```
+scaffold가 Chart.js와 RevealChart 플러그인을 template에 이미 포함합니다. `<head>`나 `Reveal.initialize()`를 수정할 필요 없습니다.
 
-`Reveal.initialize()`에 플러그인 등록:
-```javascript
-plugins: [ RevealChart ],
-chart: { defaults: { color: 'var(--slide-color-text-muted)', borderColor: 'var(--slide-color-border)' } }
-```
+body 파일(`slides/slide-N-body.html`)에 아래 차트 패턴만 추가하세요:
 
 **차트 패턴** (반드시 이 구조):
 ```html
