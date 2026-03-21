@@ -67,8 +67,8 @@ function buildSlideHtml(slide, index) {
   if (content.content) {
     bodyHtml = `      <p>${escHtml(content.content)}</p>`;
   }
-  if (content.left && content.right) {
-    bodyHtml = `      <div>\n        <p>${escHtml(content.left)}</p>\n      </div>\n      <div>\n        <p>${escHtml(content.right)}</p>\n      </div>`;
+  if (content.left || content.right) {
+    bodyHtml = `      <div>\n        ${content.left ? `<p>${escHtml(content.left)}</p>` : ''}\n      </div>\n      <div>\n        ${content.right ? `<p>${escHtml(content.right)}</p>` : ''}\n      </div>`;
   }
 
   // Title-only specific
