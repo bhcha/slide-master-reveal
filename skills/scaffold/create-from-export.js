@@ -129,7 +129,9 @@ function buildHtml(exportData, title) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${escHtml(title)}</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -142,6 +144,7 @@ ${slidesHtml}
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js-plugins@latest/chart/plugin.js"></script>
 <script>
 Reveal.initialize({
   width: 1280,
@@ -153,6 +156,13 @@ Reveal.initialize({
   slideNumber: true,
   hash: true,
   transition: 'slide',
+  plugins: [ RevealChart ],
+  chart: {
+    defaults: {
+      color: 'var(--slide-color-text-muted)',
+      borderColor: 'var(--slide-color-border)'
+    }
+  }
 });
 </script>
 

@@ -18,8 +18,8 @@ Reveal.initialize({
   plugins: [ RevealChart ],
   chart: {
     defaults: {
-      color: 'lightgray',
-      borderColor: 'lightgray'
+      color: 'var(--slide-color-text-muted)',
+      borderColor: 'var(--slide-color-border)'
     }
   }
 });
@@ -65,7 +65,7 @@ Every chart needs:
         "datasets": [{
           "label": "Revenue",
           "data": [45, 52, 61, 78],
-          "backgroundColor": "#2196F3"
+          "backgroundColor": "var(--slide-color-primary)"
         }]
       },
       "options": {
@@ -86,7 +86,7 @@ Chart on right, content on left:
 <section style="display: flex; flex-direction: column; height: 100%;">
   <h2>Chart Title</h2>
   <div style="flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; min-height: 0; min-width: 0;">
-    <div style="display: flex; flex-direction: column; justify-content: center; background: #f5f5f5; padding: 20px; border-radius: 8px;">
+    <div style="display: flex; flex-direction: column; justify-content: center; background: var(--slide-color-surface); padding: 20px; border-radius: 8px;">
       <p><strong>Key Points</strong></p>
       <ul>
         <li>First insight</li>
@@ -102,7 +102,7 @@ Chart on right, content on left:
           "labels": ["A", "B", "C"],
           "datasets": [{
             "data": [45, 35, 20],
-            "backgroundColor": ["#2196F3", "#4caf50", "#ff9800"]
+            "backgroundColor": ["var(--slide-color-primary)", "var(--slide-color-secondary)", "var(--slide-color-text-muted)"]
           }]
         },
         "options": {
@@ -124,7 +124,7 @@ Content on top, chart on bottom (equal halves):
 <section style="display: flex; flex-direction: column; height: 100%;">
   <h2>Chart Title</h2>
   <div style="flex: 1; display: grid; grid-template-rows: 1fr 1fr; gap: 20px; min-height: 0; min-width: 0;">
-    <div style="display: flex; align-items: center; justify-content: center; background: #f5f5f5; padding: 20px; border-radius: 8px;">
+    <div style="display: flex; align-items: center; justify-content: center; background: var(--slide-color-surface); padding: 20px; border-radius: 8px;">
       <div>
         <p><strong>Analysis Summary</strong></p>
         <p>Description of what the chart shows and key takeaways.</p>
@@ -139,7 +139,7 @@ Content on top, chart on bottom (equal halves):
           "datasets": [{
             "label": "Trend",
             "data": [10, 25, 35, 50],
-            "borderColor": "#2196F3",
+            "borderColor": "var(--slide-color-primary)",
             "fill": false
           }]
         },
@@ -163,7 +163,7 @@ Small content area on top (1/4 or 1/3), chart fills the rest. Use explicit fract
 <section style="display: flex; flex-direction: column; height: 100%;">
   <h2>Chart Title</h2>
   <div style="flex: 1; display: grid; grid-template-rows: 1fr 3fr; gap: 20px; min-height: 0; min-width: 0;">
-    <div style="display: flex; align-items: center; background: #f5f5f5; padding: 15px 20px; border-radius: 8px;">
+    <div style="display: flex; align-items: center; background: var(--slide-color-surface); padding: 15px 20px; border-radius: 8px;">
       <p><strong>Key insight:</strong> Revenue grew 25% quarter-over-quarter, exceeding targets.</p>
     </div>
     <div style="position: relative; min-height: 0; min-width: 0;">
@@ -175,7 +175,7 @@ Small content area on top (1/4 or 1/3), chart fills the rest. Use explicit fract
           "datasets": [{
             "label": "Revenue",
             "data": [45, 52, 61, 78],
-            "backgroundColor": "#2196F3"
+            "backgroundColor": "var(--slide-color-primary)"
           }]
         },
         "options": {
@@ -194,7 +194,7 @@ Small content area on top (1/4 or 1/3), chart fills the rest. Use explicit fract
 <section style="display: flex; flex-direction: column; height: 100%;">
   <h2>Chart Title</h2>
   <div style="flex: 1; display: grid; grid-template-rows: 1fr 2fr; gap: 20px; min-height: 0; min-width: 0;">
-    <div style="display: flex; flex-direction: column; justify-content: center; background: #f5f5f5; padding: 15px 20px; border-radius: 8px;">
+    <div style="display: flex; flex-direction: column; justify-content: center; background: var(--slide-color-surface); padding: 15px 20px; border-radius: 8px;">
       <p><strong>Summary</strong></p>
       <ul style="margin: 10px 0 0 0;">
         <li>Strong Q4 performance</li>
@@ -210,7 +210,7 @@ Small content area on top (1/4 or 1/3), chart fills the rest. Use explicit fract
           "datasets": [{
             "label": "Growth",
             "data": [100, 120, 135, 150, 180, 210],
-            "borderColor": "#2196F3",
+            "borderColor": "var(--slide-color-primary)",
             "fill": false
           }]
         },
@@ -238,22 +238,22 @@ Chart in one quadrant (bottom-right), other content in remaining three:
 <section style="display: flex; flex-direction: column; height: 100%;">
   <h2>Dashboard View</h2>
   <div style="flex: 1; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 15px; min-height: 0; min-width: 0;">
-    <div style="display: flex; align-items: center; justify-content: center; background: #e3f2fd; padding: 15px; border-radius: 8px;">
+    <div style="display: flex; align-items: center; justify-content: center; background: var(--slide-color-surface); padding: 15px; border-radius: 8px;">
       <div style="text-align: center;">
-        <p style="font-size: 2em; margin: 0; color: #1565c0;">$2.4M</p>
-        <p style="margin: 0; color: #666;">Total Revenue</p>
+        <p style="font-size: 2em; margin: 0; color: var(--slide-color-primary);">$2.4M</p>
+        <p style="margin: 0; color: var(--slide-color-text-muted);">Total Revenue</p>
       </div>
     </div>
-    <div style="display: flex; align-items: center; justify-content: center; background: #e8f5e9; padding: 15px; border-radius: 8px;">
+    <div style="display: flex; align-items: center; justify-content: center; background: var(--slide-color-surface); padding: 15px; border-radius: 8px;">
       <div style="text-align: center;">
-        <p style="font-size: 2em; margin: 0; color: #2e7d32;">+18%</p>
-        <p style="margin: 0; color: #666;">Growth Rate</p>
+        <p style="font-size: 2em; margin: 0; color: var(--slide-color-secondary);">+18%</p>
+        <p style="margin: 0; color: var(--slide-color-text-muted);">Growth Rate</p>
       </div>
     </div>
-    <div style="display: flex; align-items: center; justify-content: center; background: #fff3e0; padding: 15px; border-radius: 8px;">
+    <div style="display: flex; align-items: center; justify-content: center; background: var(--slide-color-surface); padding: 15px; border-radius: 8px;">
       <div style="text-align: center;">
-        <p style="font-size: 2em; margin: 0; color: #ef6c00;">847</p>
-        <p style="margin: 0; color: #666;">New Customers</p>
+        <p style="font-size: 2em; margin: 0; color: var(--slide-color-primary);">847</p>
+        <p style="margin: 0; color: var(--slide-color-text-muted);">New Customers</p>
       </div>
     </div>
     <div style="position: relative; min-height: 0; min-width: 0;">
@@ -264,7 +264,7 @@ Chart in one quadrant (bottom-right), other content in remaining three:
           "labels": ["Product A", "Product B", "Product C"],
           "datasets": [{
             "data": [40, 35, 25],
-            "backgroundColor": ["#2196F3", "#4caf50", "#ff9800"]
+            "backgroundColor": ["var(--slide-color-primary)", "var(--slide-color-secondary)", "var(--slide-color-text-muted)"]
           }]
         },
         "options": {
@@ -293,31 +293,12 @@ Chart.js by default maintains a 2:1 aspect ratio, which causes overflow in const
 
 ## Styling Charts
 
-### Colors
+### Using Slide Master Colors
 
-Set colors in the JSON configuration:
+Reference CSS variables from your exported design tokens:
 
 ```json
-"datasets": [{
-  "data": [12, 19, 8, 15],
-  "backgroundColor": ["#2196F3", "#ff9800", "#4caf50", "#e91e63"]
-}]
-```
-
-### Common color arrays for charts
-
-```javascript
-// Blues
-["#1565c0", "#1976d2", "#1e88e5", "#2196f3", "#42a5f5"]
-
-// Warm palette
-["#c62828", "#ef6c00", "#f9a825", "#2e7d32", "#1565c0"]
-
-// Grayscale
-["#212121", "#424242", "#616161", "#757575", "#9e9e9e"]
-
-// Categorical (distinct)
-["#2196F3", "#ff9800", "#4caf50", "#e91e63", "#9c27b0"]
+"backgroundColor": ["var(--slide-color-primary)", "var(--slide-color-secondary)", "var(--slide-color-text-muted)"]
 ```
 
 ## Common Options
@@ -412,7 +393,7 @@ For larger datasets, use external CSV files:
 Run the overflow check script to verify charts don't overflow:
 
 ```bash
-node scripts/check-overflow.js presentation.html
+node ${CLAUDE_SKILL_DIR}/check-overflow.js presentation.html
 ```
 
 ## Tips
@@ -420,6 +401,6 @@ node scripts/check-overflow.js presentation.html
 1. **Always use the flexbox pattern** - Never set fixed height on canvas directly
 2. **Always include `maintainAspectRatio: false`** in chart options
 3. **Keep charts simple** - Presentations aren't dashboards
-4. **Use consistent colors** - Match your presentation's color palette
+4. **Use consistent colors - Use `var(--slide-color-*)` tokens for consistency
 5. **Limit data points** - 4-8 points is ideal for readability
-6. **Test overflow** - Run `check-overflow.js` after adding charts
+6. **Test overflow - Run `check-overflow.js` after adding charts

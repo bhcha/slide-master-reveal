@@ -29,8 +29,14 @@ description: 슬라이드 overflow 검사 및 수정
    - 레이아웃 변경 (`.slide-grid-3` → `.slide-grid-2`)
    - 수정 후 다시 검사
 
+4. 차트가 있으면 차트 검증도 실행:
+   ```bash
+   node ${CLAUDE_SKILL_DIR}/check-charts.js <프레젠테이션>/index.html
+   ```
+
 ## 참고
 
 - Puppeteer 기반으로 실제 브라우저에서 렌더링하여 검사
 - 수직/수평 overflow 모두 감지
 - reveal.js가 초기화된 후 측정하므로 정확
+- check-charts.js는 차트 JSON 구조와 `maintainAspectRatio: false` 설정을 검증

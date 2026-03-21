@@ -16,7 +16,11 @@ Fragment animations:
 - `fade-in` (default)
 - `fade-out`
 - `fade-up`, `fade-down`, `fade-left`, `fade-right`
+- `fade-in-then-out`, `fade-in-then-semi-out`
+- `current-visible`
+- `grow`, `shrink`, `semi-fade-out`
 - `highlight-red`, `highlight-green`, `highlight-blue`
+- `highlight-current-red`, `highlight-current-green`, `highlight-current-blue`
 - `strike` (strikethrough)
 
 ## Speaker Notes
@@ -39,7 +43,7 @@ Add private notes visible only in speaker view (press `S` to open):
 
 ### Solid Color
 ```html
-<section data-background-color="#283b95">
+<section data-background-color="var(--slide-color-primary)">
 ```
 
 ### Image
@@ -51,8 +55,8 @@ Add private notes visible only in speaker view (press `S` to open):
 
 ### Gradient
 ```html
-<section data-background-gradient="linear-gradient(to bottom, #283b95, #17b2c3)">
-<section data-background-gradient="radial-gradient(#283b95, #17b2c3)">
+<section data-background-gradient="linear-gradient(to bottom, var(--slide-color-primary), var(--slide-color-secondary))">
+<section data-background-gradient="radial-gradient(var(--slide-color-primary), var(--slide-color-secondary))">
 ```
 
 ## Auto-Animate
@@ -73,12 +77,14 @@ More complex example with matching elements:
 
 ```html
 <section data-auto-animate>
-  <div data-id="box" style="width: 100px; height: 100px; background: blue;"></div>
+  <div data-id="box" style="width: 100px; height: 100px; background: var(--slide-color-primary);"></div>
 </section>
 <section data-auto-animate>
-  <div data-id="box" style="width: 300px; height: 150px; background: red;"></div>
+  <div data-id="box" style="width: 300px; height: 150px; background: var(--slide-color-secondary);"></div>
 </section>
 ```
+
+Options: `data-auto-animate-easing` (default: ease), `data-auto-animate-duration` (default: 1.0s)
 
 ## Transitions
 
@@ -97,6 +103,8 @@ Different in/out transitions:
 ```html
 <section data-transition="slide-in fade-out">
 ```
+
+Speed: `data-transition-speed="fast"` (default, fast, slow)
 
 ## Slide Visibility
 
@@ -140,3 +148,5 @@ This highlights lines 1-2 first, then line 3 on click, then line 4.
 ...
 </code></pre>
 ```
+
+Use `--slide-color-overlay` for code block background and `--slide-color-on-overlay` for text — these are already set in the exported CSS.
