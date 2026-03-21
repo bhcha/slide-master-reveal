@@ -1,0 +1,10 @@
+{
+  "name": "slide-master-reveal",
+  "version": "1.0.0",
+  "description": "Claude Code plugin for reveal.js presentations with Slide Master design tokens",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^1.1.2",
+    "puppeteer": "^24.0.0"
+  }
+}

@@ -28,6 +28,17 @@ slide-master-reveal/
 /plugin install slide-master-reveal
 ```
 
+## Dependencies
+
+check 및 review 스킬 실행에 필요:
+
+```bash
+cd <plugin-root>
+npm install    # puppeteer (overflow 검사), cheerio (차트 검증)
+```
+
+decktape은 `npx`로 자동 설치됨.
+
 ## Skills
 
 | Skill | Description |

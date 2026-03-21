@@ -34,6 +34,13 @@ description: 슬라이드 overflow 검사 및 수정
    node ${CLAUDE_SKILL_DIR}/check-charts.js <프레젠테이션>/index.html
    ```
 
+## 의존성
+
+스크립트 실행 전 플러그인 루트에서 `npm install` 필요 (puppeteer, cheerio):
+```bash
+cd ${CLAUDE_SKILL_DIR}/../.. && npm install
+```
+
 ## 참고
 
 - Puppeteer 기반으로 실제 브라우저에서 렌더링하여 검사
