@@ -16,7 +16,7 @@ description: 슬라이드 overflow 검사 및 수정
 
 1. overflow 검사 스크립트 실행:
    ```bash
-   node ${CLAUDE_SKILL_DIR}/check-overflow.js <프레젠테이션>/index.html
+   node ${CLAUDE_SKILL_DIR}/../../upstream/scripts/check-overflow.js <프레젠테이션>/index.html
    ```
 
 2. 결과 분석:

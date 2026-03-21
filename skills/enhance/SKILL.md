@@ -6,6 +6,8 @@ description: 차트, 프래그먼트, 트랜지션, 배경, auto-animate 등 고
 
 reveal.js 고급 기능을 프레젠테이션에 적용합니다.
 
+> 상세 레퍼런스: [upstream/references/advanced-features.md](../../upstream/references/advanced-features.md), [upstream/references/charts.md](../../upstream/references/charts.md)
+
 ## 사용법
 
 ```
@@ -38,9 +40,16 @@ reveal.js 고급 기능을 프레젠테이션에 적용합니다.
 | 애니메이션 | 효과 |
 |-----------|------|
 | `fade-in` | 페이드 인 (기본) |
+| `fade-out` | 페이드 아웃 |
 | `fade-up` / `fade-down` | 아래→위 / 위→아래 |
 | `fade-left` / `fade-right` | 좌→우 / 우→좌 |
+| `fade-in-then-out` | 나타났다 사라짐 |
+| `fade-in-then-semi-out` | 나타났다 50% 투명 |
+| `current-visible` | 현재 단계에서만 보임 |
+| `semi-fade-out` | 50% 투명 |
+| `grow` / `shrink` | 확대 / 축소 |
 | `highlight-red` / `green` / `blue` | 색상 강조 |
+| `highlight-current-red` / `green` / `blue` | 현재 단계만 색상 강조 |
 | `strike` | 취소선 |
 
 **패턴 예시:**
@@ -67,6 +76,8 @@ reveal.js 고급 기능을 프레젠테이션에 적용합니다.
 </section>
 ```
 
+옵션: `data-auto-animate-easing` (기본: ease), `data-auto-animate-duration` (기본: 1.0초)
+
 ### Transition (슬라이드 전환)
 
 **전체 설정** (Reveal.initialize):
@@ -81,6 +92,8 @@ transition: 'fade'  // none, fade, slide, convex, concave, zoom
 <section data-transition="slide-in fade-out">
 ```
 
+속도: `data-transition-speed="fast"` (default, fast, slow)
+
 ### Background (배경)
 
 Slide Master 토큰 변수 사용:
@@ -88,10 +101,13 @@ Slide Master 토큰 변수 사용:
 ```html
 <section data-background-color="var(--slide-color-primary)">
 <section data-background-gradient="linear-gradient(to bottom, var(--slide-color-primary), var(--slide-color-secondary))">
+<section data-background-gradient="radial-gradient(var(--slide-color-primary), var(--slide-color-secondary))">
 <section data-background-image="photo.jpg" data-background-opacity="0.3">
 ```
 
 ### Chart.js (차트)
+
+**상세 레이아웃 패턴은 [upstream/references/charts.md](../../upstream/references/charts.md) 참조.**
 
 차트 추가 시 먼저 `index.html`의 `<head>`에 스크립트 추가:
 ```html
@@ -125,7 +141,9 @@ chart: { defaults: { color: 'var(--slide-color-text-muted)', borderColor: 'var(-
 </div>
 ```
 
-차트 종류: `bar`, `line`, `pie`, `doughnut`, `radar`, `scatter`
+차트 종류: `bar`, `line`, `pie`, `doughnut`, `radar`, `polarArea`, `bubble`, `scatter`
+
+`?export` 쿼리를 붙이면 차트 애니메이션이 비활성화되어 PDF/스크린샷에 적합.
 
 ### Speaker Notes (발표자 노트)
 
@@ -144,4 +162,21 @@ df = pd.read_csv('data.csv')
 result = df.groupby('category').sum()
 print(result)
 </code></pre>
+```
+
+정적 하이라이트 (step-through 없이): `data-line-numbers="3,5-7"`
+
+### Slide Visibility
+
+```html
+<section data-visibility="hidden">    <!-- 네비게이션에서 숨김 -->
+<section data-visibility="uncounted"> <!-- 번호 매기지 않음 -->
+```
+
+### reveal.js 내장 클래스
+
+```html
+<h1 class="r-fit-text">자동 크기 맞춤</h1>
+<img class="r-stretch" src="image.jpg">  <!-- 남은 공간 채우기 -->
+<div class="r-stack">...</div>            <!-- 요소 겹치기 -->
 ```

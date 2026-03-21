@@ -16,7 +16,7 @@ description: 브라우저에서 텍스트 직접 편집 서버 실행
 
 1. 편집 서버 실행:
    ```bash
-   node ${CLAUDE_SKILL_DIR}/edit-html.js <프레젠테이션>/index.html
+   node ${CLAUDE_SKILL_DIR}/../../upstream/scripts/edit-html.js <프레젠테이션>/index.html
    ```
 
 2. 사용자에게 안내:
