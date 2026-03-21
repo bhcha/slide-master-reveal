@@ -1,0 +1,9 @@
+{
+  "name": "slide-master-reveal",
+  "description": "Generate and manage reveal.js presentations from Slide Master project files.",
+  "version": "1.0.0",
+  "author": {
+    "name": "bhcha"
+  },
+  "license": "MIT"
+}
