@@ -8,23 +8,18 @@ Based on [ryanbbrown/revealjs-skill](https://github.com/ryanbbrown/revealjs-skil
 
 ```
 slide-master-reveal/
-├── upstream/          ← 원본 revealjs 스킬 (수정 없음)
-│   ├── SKILL.md
-│   ├── references/    ← advanced-features.md, charts.md, base-styles.css
-│   └── scripts/       ← check-overflow.js, edit-html.js, create-presentation.js, check-charts.js
-├── skills/            ← Slide Master 전용 스킬 (upstream 참조)
-│   ├── studio/        ← Studio 에디터 서빙 (우리 고유)
-│   ├── scaffold/      ← 프로젝트 파일 → reveal.js (우리 고유 스크립트)
-│   ├── fill/          ← AI placeholder 채우기 (우리 고유)
-│   ├── enhance/       ← 고급 기능 (upstream/references/ 참조)
-│   ├── check/         ← overflow 검사 (upstream/scripts/ 참조)
-│   ├── review/        ← 스크린샷 리뷰 (npx decktape)
-│   └── edit/          ← 텍스트 편집 (upstream/scripts/ 참조)
-└── .claude-plugin/
+├── .claude-plugin/plugin.json
+├── skills/
+│   ├── studio/          # Studio 에디터 서빙
+│   ├── scaffold/        # 프로젝트 파일 → reveal.js HTML + CSS
+│   ├── fill/            # AI placeholder 채우기
+│   ├── enhance/         # 고급 기능 (Fragment, Chart, Auto-Animate 등)
+│   ├── check/           # overflow 검사 (Puppeteer)
+│   ├── review/          # 스크린샷 리뷰 (decktape)
+│   └── edit/            # 브라우저 텍스트 편집 서버
+├── refer-upstream/      # 원본 revealjs 스킬 참조용 (실행에 사용하지 않음)
+└── README.md
 ```
-
-- `upstream/` — 원본 스킬 파일. **수정하지 않음**. 업데이트 시 이 폴더만 교체.
-- `skills/` — Slide Master 전용 스킬. upstream 참조 + Studio 연동.
 
 ## Install
 
@@ -57,13 +52,6 @@ slide-master-reveal/
 /slide-master-reveal:edit       → Fine-tune text in browser
 ```
 
-## Updating Upstream
+## Based On
 
-```bash
-git clone --depth 1 https://github.com/ryanbbrown/revealjs-skill.git /tmp/revealjs-skill
-rm -rf upstream/
-cp -r /tmp/revealjs-skill/skills/revealjs/ upstream/
-rm -rf /tmp/revealjs-skill
-git diff upstream/
-git add upstream/ && git commit -m "update upstream revealjs skill"
-```
+원본 [ryanbbrown/revealjs-skill](https://github.com/ryanbbrown/revealjs-skill)의 스크립트와 참조 문서를 베이스로 Slide Master 디자인 토큰 시스템에 맞게 재구성. 원본은 `refer-upstream/`에 참조용으로 보관.

@@ -6,7 +6,7 @@ description: 차트, 프래그먼트, 트랜지션, 배경, auto-animate 등 고
 
 reveal.js 고급 기능을 프레젠테이션에 적용합니다.
 
-> 상세 레퍼런스: [upstream/references/advanced-features.md](../../upstream/references/advanced-features.md), [upstream/references/charts.md](../../upstream/references/charts.md)
+> 상세 레퍼런스: [advanced-features.md](advanced-features.md), [charts.md](charts.md)
 
 ## 사용법
 
