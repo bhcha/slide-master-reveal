@@ -8,6 +8,12 @@ reveal.js 고급 기능을 프레젠테이션에 적용합니다.
 
 > 상세 레퍼런스: [advanced-features.md](advanced-features.md), [charts.md](charts.md)
 
+> **편집 규칙:**
+> - body 내부 효과 (fragment, r-stack 등): `slides/slide-N-body.html` 편집 → assemble 실행
+> - section 레벨 속성 (data-transition, data-background 등): `index.template.html`의 `<section>` 태그 속성만 편집 가능
+> - 레이아웃 구조 (layout-*, .slide, .slide-header, .slide-footer) 변경 금지
+> - assemble: `node ${CLAUDE_SKILL_DIR}/../scaffold/assemble.js --dir <프레젠테이션>`
+
 ## 사용법
 
 ```

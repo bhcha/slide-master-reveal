@@ -55,11 +55,11 @@ decktape은 `npx`로 자동 설치됨.
 
 ```
 /slide-master-reveal:studio     → Open editor, design master + deck, save .json
-/slide-master-reveal:scaffold   → Generate HTML + CSS scaffold
-/slide-master-reveal:fill       → Add content (text, images, tables)
-/slide-master-reveal:enhance    → Add charts, animations, transitions
-/slide-master-reveal:check      → Detect overflow
-/slide-master-reveal:review     → Screenshot review
+/slide-master-reveal:scaffold   → Generate template + slides/*.html + styles.css
+/slide-master-reveal:fill       → Edit slides/slide-N-body.html → assemble → check
+/slide-master-reveal:enhance    → Body effects + section attributes → assemble
+/slide-master-reveal:check      → Assemble → detect overflow
+/slide-master-reveal:review     → Assemble → screenshot review
 /slide-master-reveal:edit       → Fine-tune text in browser
 ```
 

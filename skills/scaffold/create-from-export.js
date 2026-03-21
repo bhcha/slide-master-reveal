@@ -2,6 +2,7 @@
 
 /**
  * Creates a reveal.js presentation from a Slide Master export JSON.
+ * Generates index.html (structure) + slides/slide-N-body.html (body content).
  * Usage: node create-from-export.js --input slide-package.json --output presentation/
  */
 
@@ -35,16 +36,62 @@ Options:
 `);
 }
 
+function escHtml(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+// --- Body height by layout ---
+const BODY_HEIGHT = {
+  'header-body-footer': 430,
+  'two-column': 430,
+  'title-only': 620,
+  'blank-canvas': 576,
+};
+
+function buildBodyContent(slide) {
+  const { layoutId, content } = slide;
+  let bodyHtml = '';
+
+  if (content.body) {
+    bodyHtml = `<p>${escHtml(content.body)}</p>`;
+  }
+  if (content.content) {
+    bodyHtml = `<p>${escHtml(content.content)}</p>`;
+  }
+  if (content.left || content.right) {
+    bodyHtml = `<div>\n  ${content.left ? `<p>${escHtml(content.left)}</p>` : ''}\n</div>\n<div>\n  ${content.right ? `<p>${escHtml(content.right)}</p>` : ''}\n</div>`;
+  }
+
+  // Title-only: title/subtitle go in body
+  if (content.title) {
+    bodyHtml = '';
+    if (content.headerTag) bodyHtml += `<span class="badge">${escHtml(content.headerTag)}</span>\n`;
+    bodyHtml += `<h1>${escHtml(content.title)}</h1>\n`;
+    if (content.subtitle) bodyHtml += `<p>${escHtml(content.subtitle)}</p>`;
+  }
+
+  return bodyHtml;
+}
+
+function buildBodyFile(slide, index) {
+  const { layoutId } = slide;
+  const height = BODY_HEIGHT[layoutId] || 430;
+  const bodyContent = buildBodyContent(slide);
+
+  return `<!-- Slide ${index + 1} body: ${layoutId} -->
+<!-- 가용 높이: ~${height}px. 이 높이를 넘기지 마세요. -->
+${bodyContent}`;
+}
+
 function buildSlideHtml(slide, index) {
   const { layoutId, layoutClass, content, narration } = slide;
 
   let headerHtml = '';
-  let bodyHtml = '';
   let footerHtml = '';
   let notesHtml = '';
 
   // Header content
-  if (content.headerTag) {
+  if (content.headerTag && layoutId !== 'title-only') {
     headerHtml += `      <span class="badge">${escHtml(content.headerTag)}</span>\n`;
   }
   if (content.headerTitle) {
@@ -60,25 +107,6 @@ function buildSlideHtml(slide, index) {
   if (content.footerRight) footerParts.push(`      <p>${escHtml(content.footerRight)}</p>`);
   footerHtml = footerParts.join('\n');
 
-  // Body content
-  if (content.body) {
-    bodyHtml = `      <p>${escHtml(content.body)}</p>`;
-  }
-  if (content.content) {
-    bodyHtml = `      <p>${escHtml(content.content)}</p>`;
-  }
-  if (content.left || content.right) {
-    bodyHtml = `      <div>\n        ${content.left ? `<p>${escHtml(content.left)}</p>` : ''}\n      </div>\n      <div>\n        ${content.right ? `<p>${escHtml(content.right)}</p>` : ''}\n      </div>`;
-  }
-
-  // Title-only specific
-  if (content.title) {
-    bodyHtml = '';
-    if (content.headerTag) bodyHtml += `      <span class="badge">${escHtml(content.headerTag)}</span>\n`;
-    bodyHtml += `      <h1>${escHtml(content.title)}</h1>\n`;
-    if (content.subtitle) bodyHtml += `      <p>${escHtml(content.subtitle)}</p>`;
-  }
-
   // Speaker notes
   if (narration) {
     notesHtml = `    <aside class="notes">${escHtml(narration)}</aside>\n`;
@@ -87,20 +115,11 @@ function buildSlideHtml(slide, index) {
   // Assemble based on layout
   let inner = '';
 
-  if (layoutId === 'title-only') {
-    inner = `    <div class="slide-body">\n${bodyHtml}\n    </div>`;
-  } else if (layoutId === 'blank-canvas') {
-    inner = `    <div class="slide-body">\n${bodyHtml}\n    </div>`;
-  } else if (layoutId === 'two-column') {
-    inner = '';
-    if (headerHtml) inner += `    <div class="slide-header">\n${headerHtml}    </div>\n`;
-    inner += `    <div class="slide-body">\n${bodyHtml}\n    </div>`;
-    if (footerHtml) inner += `\n    <div class="slide-footer">\n${footerHtml}\n    </div>`;
+  if (layoutId === 'title-only' || layoutId === 'blank-canvas') {
+    inner = `    <div class="slide-body">\n      <!--BODY:slide-${index + 1}-->\n    </div>`;
   } else {
-    // header-body-footer (default)
-    inner = '';
     if (headerHtml) inner += `    <div class="slide-header">\n${headerHtml}    </div>\n`;
-    inner += `    <div class="slide-body">\n${bodyHtml}\n    </div>`;
+    inner += `    <div class="slide-body">\n      <!--BODY:slide-${index + 1}-->\n    </div>`;
     if (footerHtml) inner += `\n    <div class="slide-footer">\n${footerHtml}\n    </div>`;
   }
 
@@ -112,10 +131,6 @@ ${inner}
       </div>
     </div>
 ${notesHtml}  </section>`;
-}
-
-function escHtml(str) {
-  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
 function buildHtml(exportData, title) {
@@ -177,13 +192,11 @@ Reveal.initialize({
 function buildStyles(exportData) {
   let css = exportData.master.css || '';
 
-  // Add reveal.js overrides
   css += '\n\n/* === Reveal.js Overrides === */\n';
   css += '.reveal { background: var(--slide-color-background, #e8e4de); }\n';
   css += '.reveal .slides section { padding: 0; margin: 0; height: 100%; }\n';
   css += '.reveal .slide { border: none; border-radius: 0; }\n';
 
-  // Add base additions if available
   try {
     const additions = fs.readFileSync(BASE_ADDITIONS_PATH, 'utf-8');
     css += '\n' + additions;
@@ -237,19 +250,34 @@ if (!exportData.master || !exportData.deck) {
   process.exit(1);
 }
 
-// Create output directory
+// Create output directories
 const outputDir = path.resolve(options.output);
-fs.mkdirSync(outputDir, { recursive: true });
+const slidesDir = path.join(outputDir, 'slides');
+fs.mkdirSync(slidesDir, { recursive: true });
 
 // Generate files
 const html = buildHtml(exportData, options.title);
 const styles = buildStyles(exportData);
 
-fs.writeFileSync(path.join(outputDir, 'index.html'), html);
+fs.writeFileSync(path.join(outputDir, 'index.template.html'), html);
 fs.writeFileSync(path.join(outputDir, 'styles.css'), styles);
 
-console.log(`✓ Created ${exportData.deck.slides.length} slides`);
-console.log(`  ${path.join(outputDir, 'index.html')}`);
+// Generate body files
+const slides = exportData.deck.slides;
+for (let i = 0; i < slides.length; i++) {
+  const bodyContent = buildBodyFile(slides[i], i);
+  fs.writeFileSync(path.join(slidesDir, `slide-${i + 1}-body.html`), bodyContent);
+}
+
+// Run assemble
+const assemblePath = path.join(__dirname, 'assemble.js');
+if (fs.existsSync(assemblePath)) {
+  require('child_process').execSync(`node "${assemblePath}" --dir "${outputDir}"`, { stdio: 'inherit' });
+}
+
+console.log(`\n✓ Created ${slides.length} slides`);
+console.log(`  ${path.join(outputDir, 'index.template.html')}`);
 console.log(`  ${path.join(outputDir, 'styles.css')}`);
-console.log(`\nNext: /slide-master-reveal:fill to add content (text, images, tables)`);
+console.log(`  ${path.join(slidesDir, '*.html')} (${slides.length} body files)`);
+console.log(`\nNext: /slide-master-reveal:fill to add content to slides/slide-N-body.html`);
 console.log(`Then: /slide-master-reveal:check to detect overflow`);
