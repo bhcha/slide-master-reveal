@@ -54,9 +54,16 @@ sleep 1 && open http://localhost:4173
 - **Narration**: 나레이션 텍스트
 - 실시간 구조 프리뷰
 
-## 다음 단계
+## 실행 후 반드시 안내할 내용
 
-에디터에서 Save로 프로젝트 파일을 저장한 후:
+서버 실행 후 사용자에게 아래 내용을 **모두** 출력한다:
+
+1. Master 탭 — 레이아웃, 토큰(색상/타이포/간격), 프레임 설정
+2. Deck 탭 — 슬라이드 추가/편집, 슬롯별 콘텐츠 및 AI 프롬프트 입력
+3. Save (Ctrl+S) — 프로젝트 파일(.json) 저장
+4. **⚠️ 프로젝트 파일은 현재 작업 디렉토리에 저장하세요. scaffold에서 경로를 지정해야 합니다.**
+
+다음 단계:
 ```
-/slide-master-reveal:scaffold slide-project.json 출력은 ./presentation/
+/slide-master-reveal:scaffold <프로젝트파일>.json 출력은 ./presentation/
 ```
