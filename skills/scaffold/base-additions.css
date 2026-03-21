@@ -1,5 +1,16 @@
 /* === Reveal.js Overrides for Slide Master === */
 
+/* Restore bold after reset.css strips it with font: inherit */
+.reveal strong,
+.reveal b {
+  font-weight: bold;
+}
+
+/* Apply background colors */
+.reveal-viewport {
+  background-color: var(--slide-color-background);
+}
+
 /* Speaker notes styling */
 .reveal aside.notes {
   display: none;

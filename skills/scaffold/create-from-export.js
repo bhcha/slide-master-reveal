@@ -36,7 +36,7 @@ Options:
 }
 
 function buildSlideHtml(slide, index) {
-  const { layoutId, layoutClass, content, narration, prompts } = slide;
+  const { layoutId, layoutClass, content, narration } = slide;
 
   let headerHtml = '';
   let bodyHtml = '';
@@ -60,15 +60,15 @@ function buildSlideHtml(slide, index) {
   if (content.footerRight) footerParts.push(`      <p>${escHtml(content.footerRight)}</p>`);
   footerHtml = footerParts.join('\n');
 
-  // Body / prompts → placeholder comments
-  if (prompts.bodyPrompt) {
-    bodyHtml = `      <!-- AI: ${escHtml(prompts.bodyPrompt)} -->\n      <p>Slide ${index + 1} Body Content Here</p>`;
+  // Body content
+  if (content.body) {
+    bodyHtml = `      <p>${escHtml(content.body)}</p>`;
   }
-  if (prompts.contentPrompt) {
-    bodyHtml = `      <!-- AI: ${escHtml(prompts.contentPrompt)} -->\n      <p>Slide ${index + 1} Content Here</p>`;
+  if (content.content) {
+    bodyHtml = `      <p>${escHtml(content.content)}</p>`;
   }
-  if (prompts.leftPrompt && prompts.rightPrompt) {
-    bodyHtml = `      <div><!-- AI: ${escHtml(prompts.leftPrompt)} -->\n        <p>Left Column Here</p>\n      </div>\n      <div><!-- AI: ${escHtml(prompts.rightPrompt)} -->\n        <p>Right Column Here</p>\n      </div>`;
+  if (content.left && content.right) {
+    bodyHtml = `      <div>\n        <p>${escHtml(content.left)}</p>\n      </div>\n      <div>\n        <p>${escHtml(content.right)}</p>\n      </div>`;
   }
 
   // Title-only specific
@@ -128,6 +128,7 @@ function buildHtml(exportData, title) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${escHtml(title)}</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="styles.css">
@@ -146,6 +147,7 @@ ${slidesHtml}
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/reveal.js-plugins@latest/chart/plugin.js"></script>
 <script>
+const isExport = window.location.search.includes('export');
 Reveal.initialize({
   width: 1280,
   height: 720,
@@ -160,7 +162,9 @@ Reveal.initialize({
   chart: {
     defaults: {
       color: 'var(--slide-color-text-muted)',
-      borderColor: 'var(--slide-color-border)'
+      borderColor: 'var(--slide-color-border)',
+      devicePixelRatio: 2,
+      ...(isExport ? { animation: false } : {})
     }
   }
 });
@@ -214,14 +218,12 @@ if (exportData.master?.tokens && exportData.deck?.slides) {
     .filter(s => s.layoutId)
     .map(s => {
       const content = {};
-      const prompts = {};
       let narration;
       for (const [key, value] of Object.entries(s.slots || {})) {
-        if (key.endsWith('Prompt')) prompts[key] = value;
-        else if (key === 'narration') narration = value;
+        if (key === 'narration') narration = value;
         else content[key] = value;
       }
-      return { id: s.id, layoutId: s.layoutId, layoutClass: `layout-${s.layoutId}`, content, prompts, narration };
+      return { id: s.id, layoutId: s.layoutId, layoutClass: `layout-${s.layoutId}`, content, narration };
     });
   exportData = {
     master: { css: projectCss },
@@ -249,5 +251,5 @@ fs.writeFileSync(path.join(outputDir, 'styles.css'), styles);
 console.log(`✓ Created ${exportData.deck.slides.length} slides`);
 console.log(`  ${path.join(outputDir, 'index.html')}`);
 console.log(`  ${path.join(outputDir, 'styles.css')}`);
-console.log(`\nNext: /slide-master-reveal:fill to generate content`);
+console.log(`\nNext: /slide-master-reveal:fill to add content (text, images, tables)`);
 console.log(`Then: /slide-master-reveal:check to detect overflow`);

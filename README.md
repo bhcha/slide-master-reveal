@@ -12,7 +12,7 @@ slide-master-reveal/
 ├── skills/
 │   ├── studio/          # Studio 에디터 서빙
 │   ├── scaffold/        # 프로젝트 파일 → reveal.js HTML + CSS
-│   ├── fill/            # AI placeholder 채우기
+│   ├── fill/            # 대화형 콘텐츠 채우기
 │   ├── enhance/         # 고급 기능 (Fragment, Chart, Auto-Animate 등)
 │   ├── check/           # overflow 검사 (Puppeteer)
 │   ├── review/          # 스크린샷 리뷰 (decktape)
@@ -45,7 +45,7 @@ decktape은 `npx`로 자동 설치됨.
 |-------|-------------|
 | `/slide-master-reveal:studio` | Open Studio editor in browser |
 | `/slide-master-reveal:scaffold` | Generate reveal.js HTML + CSS from project file |
-| `/slide-master-reveal:fill` | Fill AI placeholder comments with content |
+| `/slide-master-reveal:fill` | Add content interactively (text, images, tables) |
 | `/slide-master-reveal:enhance` | Add charts, animations, transitions |
 | `/slide-master-reveal:check` | Detect slide overflow with Puppeteer |
 | `/slide-master-reveal:review` | Screenshot & visual review with decktape |
@@ -56,7 +56,7 @@ decktape은 `npx`로 자동 설치됨.
 ```
 /slide-master-reveal:studio     → Open editor, design master + deck, save .json
 /slide-master-reveal:scaffold   → Generate HTML + CSS scaffold
-/slide-master-reveal:fill       → Fill AI placeholders with content
+/slide-master-reveal:fill       → Add content (text, images, tables)
 /slide-master-reveal:enhance    → Add charts, animations, transitions
 /slide-master-reveal:check      → Detect overflow
 /slide-master-reveal:review     → Screenshot review

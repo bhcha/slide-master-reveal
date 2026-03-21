@@ -107,7 +107,7 @@ Slide Master 토큰 변수 사용:
 
 ### Chart.js (차트)
 
-**상세 레이아웃 패턴은 [upstream/references/charts.md](../../upstream/references/charts.md) 참조.**
+**상세 레이아웃 패턴은 [charts.md](./charts.md) 참조.**
 
 차트 추가 시 먼저 `index.html`의 `<head>`에 스크립트 추가:
 ```html
@@ -171,6 +171,67 @@ print(result)
 ```html
 <section data-visibility="hidden">    <!-- 네비게이션에서 숨김 -->
 <section data-visibility="uncounted"> <!-- 번호 매기지 않음 -->
+```
+
+### Image / Media (이미지·미디어 효과)
+
+fill로 배치된 이미지/미디어에 효과를 적용합니다.
+
+**순차 겹침 (r-stack + fragment):**
+```html
+<div class="r-stack">
+  <img class="fragment" src="step1.png" alt="Step 1">
+  <img class="fragment" src="step2.png" alt="Step 2">
+  <img class="fragment" src="step3.png" alt="Step 3">
+</div>
+```
+
+**슬라이드 간 이미지 전환 (auto-animate):**
+```html
+<section data-auto-animate>
+  <img data-id="diagram" src="overview.png" style="width: 300px;">
+</section>
+<section data-auto-animate>
+  <img data-id="diagram" src="overview.png" style="width: 800px;">
+</section>
+```
+
+**배경 이미지 + 오버레이 텍스트:**
+```html
+<section data-background-image="photo.jpg" data-background-opacity="0.3">
+  <h1>제목</h1>
+  <p>배경 위 텍스트</p>
+</section>
+```
+
+**Before/After 비교:**
+```html
+<div class="r-stack">
+  <img class="fragment current-visible" src="before.png" alt="Before">
+  <img class="fragment" src="after.png" alt="After">
+</div>
+```
+
+**테이블 행 순차 표시:**
+```html
+<table>
+  <thead><tr><th>기능</th><th>값</th></tr></thead>
+  <tbody>
+    <tr class="fragment"><td>A</td><td>100</td></tr>
+    <tr class="fragment"><td>B</td><td>200</td></tr>
+    <tr class="fragment"><td>C</td><td>300</td></tr>
+  </tbody>
+</table>
+```
+
+**비디오 자동재생 (슬라이드 진입 시):**
+```html
+<video class="r-stretch" data-autoplay src="demo.mp4"></video>
+```
+
+**배경 비디오:**
+```html
+<section data-background-video="bg.mp4" data-background-video-loop data-background-video-muted>
 ```
 
 ### reveal.js 내장 클래스

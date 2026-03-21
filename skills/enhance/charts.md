@@ -401,6 +401,6 @@ node ${CLAUDE_SKILL_DIR}/check-overflow.js presentation.html
 1. **Always use the flexbox pattern** - Never set fixed height on canvas directly
 2. **Always include `maintainAspectRatio: false`** in chart options
 3. **Keep charts simple** - Presentations aren't dashboards
-4. **Use consistent colors - Use `var(--slide-color-*)` tokens for consistency
+4. **Use consistent colors** - Use `var(--slide-color-*)` tokens for consistency
 5. **Limit data points** - 4-8 points is ideal for readability
-6. **Test overflow - Run `check-overflow.js` after adding charts
+6. **Test overflow** - Run `check-overflow.js` after adding charts

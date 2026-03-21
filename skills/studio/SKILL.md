@@ -49,17 +49,17 @@ sleep 1 && open http://localhost:4173
 
 - 슬라이드 추가/삭제/복제/순서 변경
 - 레이아웃 선택 후 슬롯별 입력
-- **Content**: 확정 텍스트 (headerTag, headerTitle 등)
-- **Prompt**: AI 생성용 프롬프트 (bodyPrompt, leftPrompt 등)
+- **Content**: 텍스트 (headerTag, headerTitle, body, left, right, content 등)
 - **Narration**: 나레이션 텍스트
 - 실시간 구조 프리뷰
+- 리치 콘텐츠(이미지, 테이블 등)는 `/fill` 스킬에서 대화형으로 추가
 
 ## 실행 후 반드시 안내할 내용
 
 서버 실행 후 사용자에게 아래 내용을 **모두** 출력한다:
 
 1. Master 탭 — 레이아웃, 토큰(색상/타이포/간격), 프레임 설정
-2. Deck 탭 — 슬라이드 추가/편집, 슬롯별 콘텐츠 및 AI 프롬프트 입력
+2. Deck 탭 — 슬라이드 추가/편집, 슬롯별 콘텐츠 입력
 3. Save (Ctrl+S) — 프로젝트 파일(.json) 저장
 4. **⚠️ 프로젝트 파일은 현재 작업 디렉토리에 저장하세요. scaffold에서 경로를 지정해야 합니다.**
 
