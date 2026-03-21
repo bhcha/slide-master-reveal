@@ -239,5 +239,5 @@ fs.writeFileSync(path.join(outputDir, 'styles.css'), styles);
 console.log(`✓ Created ${exportData.deck.slides.length} slides`);
 console.log(`  ${path.join(outputDir, 'index.html')}`);
 console.log(`  ${path.join(outputDir, 'styles.css')}`);
-console.log(`\nNext: Fill in AI-generated content (look for <!-- AI: ... --> comments)`);
-console.log(`Then: node reveal-skills/check/check-overflow.js ${path.join(outputDir, 'index.html')}`);
+console.log(`\nNext: /slide-master-reveal:fill to generate content`);
+console.log(`Then: /slide-master-reveal:check to detect overflow`);

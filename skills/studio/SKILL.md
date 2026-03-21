@@ -36,7 +36,7 @@ sleep 1 && open http://localhost:4173
 
 - Chrome 또는 Edge 전용 (File System Access API 필요)
 - 파일명 + dirty 표시(•)가 상단에 표시됨
-- 프로젝트 파일 포맷: `{ master, deck, css }` — Save 시 CSS 자동 생성 포함
+- 프로젝트 파일 포맷: `{ version: 2, master, deck, css }` — Save 시 CSS 자동 생성 포함
 
 ### Master 탭
 
