@@ -10,7 +10,10 @@
       "name": "slide-master-reveal",
       "description": "Generate and manage reveal.js presentations from Slide Master project files with design tokens, body separation architecture, and interactive content filling.",
       "category": "development",
-      "source": ".",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/bhcha/slide-master-reveal.git"
+      },
       "homepage": "https://github.com/bhcha/slide-master-reveal"
     }
   ]
