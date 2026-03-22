@@ -84,7 +84,7 @@ ${bodyContent}`;
 }
 
 function buildSlideHtml(slide, index) {
-  const { layoutId, layoutClass, content, narration } = slide;
+  const { layoutId, layoutClass, content } = slide;
 
   let headerHtml = '';
   let footerHtml = '';
@@ -225,12 +225,10 @@ if (exportData.master?.tokens && exportData.deck?.slides) {
     .filter(s => s.layoutId)
     .map(s => {
       const content = {};
-      let narration;
       for (const [key, value] of Object.entries(s.slots || {})) {
-        if (key === 'narration') narration = value;
-        else content[key] = value;
+        content[key] = value;
       }
-      return { id: s.id, layoutId: s.layoutId, layoutClass: `layout-${s.layoutId}`, content, narration };
+      return { id: s.id, layoutId: s.layoutId, layoutClass: `layout-${s.layoutId}`, content };
     });
   exportData = {
     master: { css: projectCss },
