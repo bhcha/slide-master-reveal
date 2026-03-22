@@ -88,8 +88,6 @@ function buildSlideHtml(slide, index) {
 
   let headerHtml = '';
   let footerHtml = '';
-  let notesHtml = '';
-
   // Header content
   if (content.headerTag && layoutId !== 'title-only') {
     headerHtml += `      <span class="badge">${escHtml(content.headerTag)}</span>\n`;
@@ -106,11 +104,6 @@ function buildSlideHtml(slide, index) {
   if (content.footerLeft) footerParts.push(`      <p>${escHtml(content.footerLeft)}</p>`);
   if (content.footerRight) footerParts.push(`      <p>${escHtml(content.footerRight)}</p>`);
   footerHtml = footerParts.join('\n');
-
-  // Speaker notes
-  if (narration) {
-    notesHtml = `    <aside class="notes">${escHtml(narration)}</aside>\n`;
-  }
 
   // Assemble based on layout
   let inner = '';
@@ -130,7 +123,8 @@ function buildSlideHtml(slide, index) {
 ${inner}
       </div>
     </div>
-${notesHtml}  </section>`;
+    <aside class="notes"><!--NOTES:slide-${index + 1}--></aside>
+  </section>`;
 }
 
 function buildHtml(exportData, title) {
@@ -262,11 +256,12 @@ const styles = buildStyles(exportData);
 fs.writeFileSync(path.join(outputDir, 'index.template.html'), html);
 fs.writeFileSync(path.join(outputDir, 'styles.css'), styles);
 
-// Generate body files
+// Generate body + notes files
 const slides = exportData.deck.slides;
 for (let i = 0; i < slides.length; i++) {
   const bodyContent = buildBodyFile(slides[i], i);
   fs.writeFileSync(path.join(slidesDir, `slide-${i + 1}-body.html`), bodyContent);
+  fs.writeFileSync(path.join(slidesDir, `slide-${i + 1}-notes.html`), `<!-- Slide ${i + 1} notes -->\n`);
 }
 
 // Run assemble

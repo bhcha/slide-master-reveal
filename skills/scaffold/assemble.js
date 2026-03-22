@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 /**
- * Assembles slide body files into index.html from index.template.html.
- * Replaces <!--BODY:slide-N--> markers with content from slides/slide-N-body.html.
- * Template is preserved so assemble can be re-run after editing body files.
+ * Assembles slide body + notes files into index.html from index.template.html.
+ * Replaces <!--BODY:slide-N--> and <!--NOTES:slide-N--> markers.
+ * Template is preserved so assemble can be re-run after editing.
  *
  * Usage: node assemble.js --dir <presentation-directory>
  */
@@ -49,8 +49,21 @@ function main() {
     return body;
   });
 
+  // Replace <!--NOTES:slide-N--> with content from slides/slide-N-notes.html
+  let notesCount = 0;
+  html = html.replace(/<!--NOTES:slide-(\d+)-->/g, (match, num) => {
+    const notesFile = path.join(slidesDir, `slide-${num}-notes.html`);
+    if (!fs.existsSync(notesFile)) return '';
+
+    let notes = fs.readFileSync(notesFile, 'utf-8');
+    notes = notes.replace(/^<!--.*?-->\n?/gm, '').trim();
+
+    if (notes) notesCount++;
+    return notes;
+  });
+
   fs.writeFileSync(indexPath, html);
-  console.log(`✓ Assembled ${count} slide bodies into index.html`);
+  console.log(`✓ Assembled ${count} slide bodies + ${notesCount} notes into index.html`);
 }
 
 main();

@@ -119,9 +119,32 @@ Font Awesome: `<i class="fa-solid fa-lightbulb"></i>`
 </table>
 ```
 
+## 나레이션 바
+
+슬라이드 하단에 토스트 형태로 표시되는 나레이션입니다. body 파일에 추가합니다:
+
+```html
+<!-- slides/slide-N-body.html 안에 추가 -->
+<div class="slide-narration-wrap">
+  <div class="slide-narration-bar">여기에 나레이션 텍스트</div>
+</div>
+```
+
+나레이션 바는 absolute 포지션이므로 body 가용 높이에 영향을 주지 않습니다.
+
+## 발표자 노트
+
+발표자 뷰(S키)에서만 보이는 노트입니다. notes 파일에 작성합니다:
+
+```
+slides/slide-N-notes.html에 텍스트 작성
+```
+
+assemble 후 `<aside class="notes">`에 삽입됩니다.
+
 ## 규칙
 
-- **body 파일만 편집** — index.html, template, styles.css 수정 금지
+- **body 파일과 notes 파일만 편집** — index.html, template, styles.css 수정 금지
 - 색상 하드코딩 금지 — `var(--slide-color-*)` 토큰만 사용
 - 인라인 스타일은 grid 배치용만 허용 (`display: grid; grid-template-columns: ...`)
 - SVG/이미지에 반드시 `max-height` 설정
