@@ -14,12 +14,18 @@ description: Slide Master Studio 에디터 열기
 
 ## 실행
 
-이 스킬 디렉토리에 포함된 정적 파일(dist/)을 로컬 서버로 서빙한다.
+1. 포트 확인 (4173이 사용 중인지 체크):
+   ```bash
+   lsof -ti:4173
+   ```
+   - **출력이 있으면**: 이미 실행 중. `open http://localhost:4173`으로 바로 열기
+   - **출력이 없으면**: 아래 서버 실행
 
-```bash
-npx serve ${CLAUDE_SKILL_DIR}/dist -l 4173 --single &
-sleep 1 && open http://localhost:4173
-```
+2. 서버 실행:
+   ```bash
+   npx serve ${CLAUDE_SKILL_DIR}/dist -l 4173 --single &
+   sleep 1 && open http://localhost:4173
+   ```
 
 종료 시 `kill %1` 또는 Ctrl+C.
 
@@ -41,18 +47,16 @@ sleep 1 && open http://localhost:4173
 ### Master 탭
 
 - **레이아웃 선택**: HeaderBodyFooter, TitleOnly, TwoColumn, BlankCanvas
-- **Frame 설정**: Header/Footer/Narration Bar의 visibility, align 설정
+- **Frame 설정**: Header/Footer의 visibility, align 설정
 - **Tokens 설정**: Colors(11종), Typography(6 role), Spacing(9종), Radius(3종)
 - **레이아웃별 오버라이드**: 글로벌 → 레이아웃 기본 → 사용자 오버라이드 캐스케이드
 
 ### Deck 탭
 
 - 슬라이드 추가/삭제/복제/순서 변경
-- 레이아웃 선택 후 슬롯별 입력
-- **Content**: 텍스트 (headerTag, headerTitle, body, left, right, content 등)
-- **Narration**: 나레이션 텍스트
+- 레이아웃 선택 후 구조 슬롯 입력 (headerTag, headerTitle 등)
+- Body와 나레이션은 `/fill`과 `/enhance`에서 채움 (프리뷰에 placeholder 표시)
 - 실시간 구조 프리뷰
-- 리치 콘텐츠(이미지, 테이블 등)는 `/fill` 스킬에서 대화형으로 추가
 
 ## 실행 후 반드시 안내할 내용
 
