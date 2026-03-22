@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "slide-master-reveal",
+  "description": "Generate reveal.js presentations from Slide Master design token system",
+  "owner": {
+    "name": "bhcha"
+  },
+  "plugins": [
+    {
+      "name": "slide-master-reveal",
+      "description": "Generate and manage reveal.js presentations from Slide Master project files with design tokens, body separation architecture, and interactive content filling.",
+      "category": "development",
+      "source": ".",
+      "homepage": "https://github.com/bhcha/slide-master-reveal"
+    }
+  ]
+}
